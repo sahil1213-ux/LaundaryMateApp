@@ -12,7 +12,7 @@ import {
 import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {handleSignUp} from '../../firebase/LoginSignUpServices';
+import {handleSignUp} from '../../firebase/SignupAndLogin';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -38,7 +38,7 @@ export default function SignUpScreen() {
 
       <KeyboardAvoidingView>
         <View style={styles.loginContainer}>
-          <Text style={styles.loginTitle}>Log in to your Account</Text>
+          <Text style={styles.loginTitle}>Sign up </Text>
         </View>
 
         <View>
@@ -76,24 +76,21 @@ export default function SignUpScreen() {
           </View>
         </View>
 
-        <View style={styles.bottomContainer}>
-          <Text>Keep me logged in</Text>
-          <Text style={styles.forgotPassword}>Forgot Password</Text>
-        </View>
-
         <View style={styles.spacing} />
-
-        <Pressable onPress={handleSignUp} style={styles.loginButton}>
-          <Text style={styles.loginButtonText}>Login</Text>
-        </Pressable>
 
         <Pressable
           onPress={() =>
             handleSignUp({email, password, setEmail, setPassword, navigation})
           }
+          style={styles.loginButton}>
+          <Text style={styles.loginButtonText}>Sign up</Text>
+        </Pressable>
+
+        <Pressable
+          onPress={() => navigation.navigate('Login')}
           style={styles.signupButton}>
           <Text style={styles.signupButtonText}>
-            Don&apos;t have an account? Sign up
+            Already have an account? Login
           </Text>
         </Pressable>
       </KeyboardAvoidingView>

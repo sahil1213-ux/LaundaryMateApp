@@ -56,7 +56,7 @@ export const handleLogin = ({email, password}) => {
           );
           setEmail('');
           setPassword('');
-            navigation.replace('Home');
+          navigation.push('TabNav');
         } catch (error) {
           console.log(error);
         }

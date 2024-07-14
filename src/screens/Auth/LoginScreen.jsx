@@ -13,7 +13,7 @@ import {useNavigation} from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
 import {Icon} from 'react-native-vector-icons/Fontisto';
 import {AntDesign} from 'react-native-vector-icons/AntDesign';
-import {handleLogin} from '../../firebase/LoginSignUpServices';
+import {handleLogin} from '../../firebase/SignupAndLogin';
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import {theme} from '../../utils/theme';
 
@@ -42,6 +42,11 @@ export default function LoginScreen() {
     <SafeAreaView
       className="flex-1 items-center"
       style={{backgroundColor: theme.white}}>
+      <Text
+        onPress={() => navigation.push('TabNav')}
+        className="self-end my-1 mx-1 text-black sm:text-sm md:text-base">
+        Skip
+      </Text>
       <View
         style={{height: hp(40), backgroundColor: theme.amber, width: '100%'}}>
         <View
