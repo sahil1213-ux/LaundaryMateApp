@@ -5,21 +5,23 @@ import {
   MagnifyingGlassCircleIcon,
   ShoppingBagIcon,
 } from 'react-native-heroicons/outline';
-import {MyText} from '../utils/sizes_padding_margin';
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import {CategoryCard, SubCategoryCard} from '../components/BasketComp';
-import DressItem from '../components/DressItem';
-import {houseData, kidsData, menData, womenData} from '../constants';
-import {theme} from '../utils/theme';
 import {useNavigation} from '@react-navigation/native';
+import {theme} from '../../utils/theme';
+import {houseData, kidsData, menData, womenData} from '../../constants';
+import DressItem from '../../components/DressItem';
+import {CategoryCard, SubCategoryCard} from '../../components/BasketComp';
+import {MyText} from '../../utils/sizes_padding_margin';
+import {useSelector} from 'react-redux';
 
 export default function SelectScreen() {
   const [option, setOption] = useState('Men');
   const [selectedOption, setSelectedOption] = useState('Wash + fold');
-  const [cart] = useState([
+  const cart = useSelector(state => state.cart.cart);
+  const [cat] = useState([
     'Wash + fold',
     'Wash + Iron',
-    'Stream Iron',
+    'Stream + Iron',
     'Dry Clean',
   ]);
   const [subCat] = useState(['Men', 'Women', 'Kids', 'Households']);
@@ -57,7 +59,10 @@ export default function SelectScreen() {
             </View>
           </View>
           <View className="flex-row items-center space-x-1">
-            <MagnifyingGlassCircleIcon size={hp(7)} color={theme.blackColor} />
+            <MagnifyingGlassCircleIcon
+              size={hp(5.4)}
+              color={theme.blackColor}
+            />
             {/* <Bars3CenterLeftIcon size={24} color="#0066b2" /> */}
           </View>
         </View>
@@ -69,7 +74,7 @@ export default function SelectScreen() {
             backgroundColor: '#FEBE10',
             paddingVertical: hp(1),
           }}>
-          {cart.map((item, index) => (
+          {cat.map((item, index) => (
             <CategoryCard
               key={index}
               text={item}
@@ -96,9 +101,9 @@ export default function SelectScreen() {
         <View style={{marginHorizontal: hp(1)}}>
           {option === 'Men' && (
             <View>
-              {menData.map((item, index) => (
+              {menData.map(item => (
                 <DressItem
-                  key={index}
+                  key={item.id}
                   item={item}
                   selectedOption={selectedOption}
                 />
@@ -107,9 +112,9 @@ export default function SelectScreen() {
           )}
           {option === 'Women' && (
             <View>
-              {womenData.map((item, index) => (
+              {womenData.map(item => (
                 <DressItem
-                  key={index}
+                  key={item.id}
                   item={item}
                   selectedOption={selectedOption}
                 />
@@ -118,9 +123,9 @@ export default function SelectScreen() {
           )}
           {option === 'Kids' && (
             <View>
-              {kidsData.map((item, index) => (
+              {kidsData.map(item => (
                 <DressItem
-                  key={index}
+                  key={item.id}
                   item={item}
                   selectedOption={selectedOption}
                 />
@@ -129,9 +134,9 @@ export default function SelectScreen() {
           )}
           {option === 'Households' && (
             <View>
-              {houseData.map((item, index) => (
+              {houseData.map(item => (
                 <DressItem
-                  key={index}
+                  key={item.id}
                   item={item}
                   selectedOption={selectedOption}
                 />
@@ -141,12 +146,13 @@ export default function SelectScreen() {
         </View>
       </ScrollView>
       {cart.length > 0 && (
-        <Pressable style={{backgroundColor: '#E0E0E0', padding: 10}}>
-          <View style={{flexDirection: 'row', alignItems: 'center', gap: 12}}>
+        <Pressable style={{backgroundColor: '#E0E0E0', padding: hp(1)}}>
+          <View
+            style={{flexDirection: 'row', alignItems: 'center', gap: hp(3)}}>
             <View
               style={{
-                width: 30,
-                height: 30,
+                width: hp(3),
+                height: hp(3),
                 borderRadius: 15,
                 backgroundColor: 'white',
                 justifyContent: 'center',
@@ -165,7 +171,7 @@ export default function SelectScreen() {
             </View>
 
             <Pressable
-              onPress={() => navigation.navigate('Cart')}
+              onPress={() => navigation.navigate('Basket')}
               style={{padding: 10, backgroundColor: 'white', borderRadius: 4}}>
               <Text>View</Text>
             </Pressable>

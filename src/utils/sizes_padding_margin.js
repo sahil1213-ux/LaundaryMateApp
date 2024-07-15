@@ -3,9 +3,9 @@ import React from "react";
 import { Text } from "react-native";
 
 export const appText = {
-    small: hp(2.4),
-    medium: hp(3),
-    lg: hp(3.5)
+    small: hp(2),
+    medium: hp(2.6),
+    lg: hp(2.8)
 }
 import PropTypes from 'prop-types'; // Add this line
 export const MyText = ({ text, isHeading = false, isSmallMedLg = 'small', txtColor, size, fontWeightt }) => {

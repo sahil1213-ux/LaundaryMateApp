@@ -1,7 +1,6 @@
-import {View, Text, Pressable} from 'react-native';
+import {View, Text, Pressable, SafeAreaView} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {ArrowLeftIcon, XCircleIcon} from 'react-native-heroicons/outline';
-import {theme} from '../utils/theme';
 import {useNavigation} from '@react-navigation/native';
 import {ScrollView} from 'react-native-gesture-handler';
 import moment from 'moment';
@@ -14,6 +13,7 @@ import {PlaceOrder} from '../../firebase/OrderServices';
 import Step3 from '../../components/AddressScreenComponents/Step3';
 import HeaderComp from '../../components/AddressScreenComponents/HeaderComp';
 import Step4 from '../../components/AddressScreenComponents/Step4';
+import {theme} from '../../utils/theme';
 
 export default function AddressScreen() {
   const [step, setStep] = useState(1);
@@ -66,7 +66,7 @@ export default function AddressScreen() {
   ];
 
   return (
-    <View className="flex-1">
+    <SafeAreaView className="flex-1">
       <View
         style={{padding: hp(1)}}
         className="flex-row items-center justify-between  bg-amber-400">
@@ -133,6 +133,6 @@ export default function AddressScreen() {
           </Text>
         </Pressable>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }

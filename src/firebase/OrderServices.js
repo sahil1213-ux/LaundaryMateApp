@@ -21,7 +21,7 @@ export  const PlaceOrder = async (total,cart, selectedAdress,selectedTime,select
       if (orderDocRef.id) {
         dispatch(cleanCart());
         console.log('order placed', orderDocRef.id);
-        navigation.navigate('Home');
+        navigation.navigate('Orders');
       } else {
         throw new Error('Order not placed');
       }

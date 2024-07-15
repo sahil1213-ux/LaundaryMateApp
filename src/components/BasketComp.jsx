@@ -10,19 +10,17 @@ export const CategoryCard = ({text, setSelectedOption, selectedOption}) => (
     style={{
       borderColor:
         selectedOption === text ? theme.bgBlueColor : theme.transparent,
-      padding: hp(2),
+      padding: hp(1.4),
       marginHorizontal: hp(0.3),
       backgroundColor:
         selectedOption === text ? theme.bgBlueColor : theme.white,
     }}
     onPress={() => setSelectedOption(text)}
-    className="bg-white justify-center items-center rounded-sm border">
+    className="bg-white justify-center items-center rounded-md border">
     <MyText
       text={text}
       isHeading={true}
-      txtColor={
-        selectedOption === text ? theme.btnBgColorWhite : theme.blackColor
-      }
+      txtColor={selectedOption === text ? 'white' : theme.blackColor}
     />
   </Pressable>
 );
@@ -37,8 +35,8 @@ export const SubCategoryCard = ({text, setOptions, option}) => (
   <Pressable
     style={{
       borderColor: option === text ? theme.blackColor : theme.JubileeGrey,
-      paddingHorizontal: hp(3),
-      paddingVertical: hp(1),
+      paddingHorizontal: hp(1.7),
+      paddingVertical: hp(0.4),
       marginEnd: hp(0.64),
       borderWidth: 1,
     }}
@@ -47,7 +45,7 @@ export const SubCategoryCard = ({text, setOptions, option}) => (
     <MyText
       text={text}
       isHeading={true}
-      size={hp(3)}
+      size={hp(2.7)}
       fontWeight={'500'}
       txtColor={option === text ? theme.blackColor : theme.DarkPurpleGrey}
     />

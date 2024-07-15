@@ -1,15 +1,27 @@
 import React from 'react';
 import {TextInput, View, Text} from 'react-native';
-
-export const AddressTextField = (value, setValue, placeholder, headingTxt) => (
-  <View style={{marginVertical: 10}}>
+import PropTypes from 'prop-types';
+export const AddressTextField = ({
+  value,
+  setValue,
+  placeholder,
+  headingTxt,
+}) => (
+  <View className="px-2">
     <Text style={{fontSize: 15, fontWeight: 'bold'}}>{headingTxt}</Text>
     <TextInput
       value={value}
       onChangeText={text => setValue(text)}
-      placeholderTextColor={'black'}
-      className="border-2 border-gray-300 p-2 rounded-md mt-2"
+      placeholderTextColor="gray"
+      className="border-2 border-gray-300 rounded-md"
       placeholder={placeholder}
+      style={{color: 'gray'}}
     />
   </View>
 );
+AddressTextField.propTypes = {
+  value: PropTypes.string.isRequired,
+  setValue: PropTypes.func.isRequired,
+  placeholder: PropTypes.string,
+  headingTxt: PropTypes.string,
+};

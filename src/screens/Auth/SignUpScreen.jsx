@@ -2,189 +2,115 @@ import {
   View,
   Text,
   SafeAreaView,
-  Image,
   KeyboardAvoidingView,
-  TextInput,
   Pressable,
-  Dimensions,
-  StyleSheet, // Add this line to import StyleSheet
 } from 'react-native';
 import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import FastImage from 'react-native-fast-image';
 import {handleSignUp} from '../../firebase/SignupAndLogin';
+import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import {theme} from '../../utils/theme';
+import AuthInputs from '../../components/AuthComponents';
 
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+// firebase
 
-export default function SignUpScreen() {
+export default function LoginScreen() {
   const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+
   const [password, setPassword] = useState('');
   const navigation = useNavigation();
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.logoContainer}>
-          <Image
-            style={styles.logo}
+    <SafeAreaView
+      className="flex-1 space-y-1"
+      style={{backgroundColor: theme.white}}>
+      <View
+        style={{height: hp(27), backgroundColor: theme.amber, width: '100%'}}>
+        <Text
+          onPress={() => navigation.push('TabNav')}
+          className="self-end my-1 mx-1 text-white sm:text-sm md:text-base">
+          Skip
+        </Text>
+        <View
+          className="items-center justify-center"
+          style={{
+            marginTop: hp(5),
+          }}>
+          <FastImage
+            style={{width: hp(25), height: hp(10), resizeMode: 'cover'}}
             source={{
               uri: 'https://laundrymate.in/assets/images/shared/branding/Logo.webp',
             }}
           />
         </View>
-        <Text style={styles.title}>Wash Wizard</Text>
+        <Text
+          className={`text-center text-amber text-2xl font-bold`}
+          style={{
+            marginTop: hp(2),
+            fontSize: hp(3),
+          }}>
+          Wash Wizard
+        </Text>
       </View>
 
-      <KeyboardAvoidingView>
-        <View style={styles.loginContainer}>
-          <Text style={styles.loginTitle}>Sign up </Text>
-        </View>
-
+      <KeyboardAvoidingView className="space-y-2 flex-1 justify-center">
         <View>
-          <View style={styles.inputContainer}>
-            <MaterialIcons
-              name="email"
-              size={windowWidth * 0.06}
-              color="white"
-              style={styles.inputIcon}
-            />
-            <TextInput
-              value={email}
-              onChangeText={text => setEmail(text)}
-              style={styles.input}
-              placeholder="Enter your email"
-              placeholderTextColor={'white'}
-            />
-          </View>
-
-          <View style={styles.inputContainer}>
-            <MaterialIcons
-              name="lock1"
-              size={windowWidth * 0.06}
-              color="white"
-              style={styles.inputIcon}
-            />
-            <TextInput
-              secureTextEntry={true}
-              value={password}
-              onChangeText={text => setPassword(text)}
-              style={styles.input}
-              placeholder="Enter your password"
-              placeholderTextColor={'white'}
-            />
-          </View>
+          <Text
+            className={`text-center text-amber font-bold text-base`}
+            style={{
+              marginTop: hp(1),
+            }}>
+            Sign to create Account
+          </Text>
         </View>
 
-        <View style={styles.spacing} />
+        <View className="space-y-1">
+          <AuthInputs
+            value={name}
+            setValue={setName}
+            tag="name"
+            placeholder={`Enter your name`}
+          />
+          <AuthInputs
+            value={email}
+            setValue={setEmail}
+            tag="email"
+            placeholder={`Enter your email`}
+          />
+          <AuthInputs
+            value={password}
+            setValue={setPassword}
+            tag="password"
+            placeholder={`Enter your password`}
+          />
+        </View>
 
         <Pressable
           onPress={() =>
-            handleSignUp({email, password, setEmail, setPassword, navigation})
+            handleSignUp(email, password, setPassword, setEmail, navigation)
           }
-          style={styles.loginButton}>
-          <Text style={styles.loginButtonText}>Sign up</Text>
+          className="rounded-sm bg-yellow-500 ml-auto mr-auto mt-1 "
+          style={{
+            marginTop: hp(1.3),
+            paddingHorizontal: hp(8),
+            padding: hp(1.5),
+          }}>
+          <Text className="text-center text-white font-bold text-sm">
+            Sign up
+          </Text>
         </Pressable>
 
         <Pressable
-          onPress={() => navigation.navigate('Login')}
-          style={styles.signupButton}>
-          <Text style={styles.signupButtonText}>
-            Already have an account? Login
+          onPress={() => navigation.replace('Login')}
+          style={{marginTop: hp(1)}}>
+          <Text style={{fontSize: hp(2)}} className="text-center">
+            {`Already have an account? `}
+            <Text style={{color: theme.amber}}>login</Text>
           </Text>
         </Pressable>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-    alignItems: 'center',
-  },
-  header: {
-    height: windowHeight * 0.2,
-    backgroundColor: '#FEBE10',
-    width: '100%',
-  },
-  logoContainer: {
-    marginTop: windowHeight * 0.05,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  logo: {
-    width: windowWidth * 0.8,
-    height: windowHeight * 0.05,
-    resizeMode: 'cover',
-  },
-  title: {
-    marginTop: windowHeight * 0.02,
-    textAlign: 'center',
-    fontSize: windowWidth * 0.05,
-    fontWeight: 'bold',
-    color: 'white',
-  },
-  loginContainer: {
-    alignItems: 'center',
-  },
-  loginTitle: {
-    fontSize: windowWidth * 0.04,
-    fontWeight: 'bold',
-    marginTop: windowHeight * 0.05,
-    color: '#FEBE10',
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: windowWidth * 0.01,
-    backgroundColor: '#FEBE10',
-    paddingVertical: windowHeight * 0.01,
-    borderRadius: windowWidth * 0.01,
-    marginTop: windowHeight * 0.03,
-  },
-  inputIcon: {
-    marginLeft: windowWidth * 0.02,
-  },
-  input: {
-    color: 'white',
-    width: windowWidth * 0.8,
-    marginVertical: windowHeight * 0.01,
-    fontSize: windowWidth * 0.04,
-  },
-  bottomContainer: {
-    marginTop: windowHeight * 0.01,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  forgotPassword: {
-    color: '#007FFF',
-    fontWeight: '500',
-  },
-  spacing: {
-    marginTop: windowHeight * 0.05,
-  },
-  loginButton: {
-    width: windowWidth * 0.4,
-    backgroundColor: '#FEBE10',
-    borderRadius: windowWidth * 0.02,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    padding: windowHeight * 0.02,
-  },
-  loginButtonText: {
-    textAlign: 'center',
-    fontSize: windowWidth * 0.04,
-    fontWeight: 'bold',
-    color: 'white',
-  },
-  signupButton: {
-    marginTop: windowHeight * 0.02,
-  },
-  signupButtonText: {
-    textAlign: 'center',
-    fontSize: windowWidth * 0.035,
-  },
-});

@@ -2,10 +2,16 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import OrdersScreen from '../../screens/OrdersScreen';
 import {
-  HomeIcon,
-  ShoppingCartIcon,
-  ShoppingBagIcon,
+  HomeIcon as HomeIconOutline,
+  ShoppingCartIcon as ShoppingCartIconOutline,
+  ShoppingBagIcon as ShoppingBagIconOutline,
 } from 'react-native-heroicons/outline';
+import {
+  HomeIcon as HomeIconSolid,
+  ShoppingCartIcon as ShoppingCartIconSolid,
+  ShoppingBagIcon as ShoppingBagIconSolid,
+} from 'react-native-heroicons/solid'; // Assuming solid icons are used for focused state
+
 import {BasketStack, HomeStack} from './ScreenNav/StackNav';
 import {Provider} from 'react-redux';
 import Store from '../../redux/Store';
@@ -15,41 +21,69 @@ import SignUpScreen from '../../screens/Auth/SignUpScreen';
 
 export const TabNav = () => {
   const Tab = createBottomTabNavigator();
-  const options = {
-    headerShown: false,
-    tabBarIcon: tabInfo => {
-      if (tabInfo.route.name === 'Home') {
-        return <HomeIcon size={24} color={tabInfo.color} />;
-      } else if (tabInfo.route.name === 'Basket') {
-        return <ShoppingCartIcon size={24} color={tabInfo.color} />;
+  const screenOptions = ({route}) => ({
+    tabBarIcon: ({focused, color, size}) => {
+      if (route.name === 'Home1') {
+        return focused ? (
+          <HomeIconSolid size={size} color={color} />
+        ) : (
+          <HomeIconOutline size={size} color={color} />
+        );
+      } else if (route.name === 'Basket1') {
+        return focused ? (
+          <ShoppingBagIconSolid size={size} color={color} />
+        ) : (
+          <ShoppingBagIconOutline size={size} color={color} />
+        );
+      } else if (route.name === 'Orders') {
+        return focused ? (
+          <ShoppingCartIconSolid size={size} color={color} />
+        ) : (
+          <ShoppingCartIconOutline size={size} color={color} />
+        );
       }
-      return <ShoppingBagIcon size={24} color={tabInfo.color} />;
     },
-    tabBarLabelStyle: {
-      fontSize: 14,
-      fontWeight: 'bold',
-    },
-    tabBarActiveTintColor: 'black',
+    tabBarActiveTintColor: '#1DA1F2',
     tabBarInactiveTintColor: 'gray',
-  };
-  return (
-    // Step 3 wrap the app with Provider
+    headerShown: false,
+  });
 
-    <Tab.Navigator initialRouteName="Home" screenOptions={options}>
-      {/* step 3 */}
-      <Tab.Screen name="Home" component={HomeStack} />
-      <Tab.Screen name="Basket" component={BasketStack} />
-      <Tab.Screen name="Orders" component={OrdersScreen} />
+  return (
+    <Tab.Navigator initialRouteName="Home1" screenOptions={screenOptions}>
+      <Tab.Screen
+        name="Home1"
+        component={HomeStack}
+        options={{
+          tabBarLabel: 'Home',
+        }}
+      />
+      <Tab.Screen
+        name="Basket1"
+        component={BasketStack}
+        options={{
+          tabBarLabel: 'Basket',
+        }}
+      />
+      <Tab.Screen
+        name="Orders"
+        component={OrdersScreen}
+        options={{
+          tabBarLabel: 'Orders',
+        }}
+      />
     </Tab.Navigator>
   );
 };
 
 export default function AppNavigation() {
   const Stack = createNativeStackNavigator();
+  const options = {
+    headerShown: false,
+  };
 
   return (
     <Provider store={Store}>
-      <Stack.Navigator initialRouteName="Login">
+      <Stack.Navigator initialRouteName="Login" screenOptions={options}>
         <Stack.Screen name="TabNav" component={TabNav} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />

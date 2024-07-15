@@ -27,7 +27,7 @@ export const handleLogin = ({email, password}) => {
         password: PropTypes.string.isRequired,
     };
 
-  export  const handleSignUp = ({email, password, setPassword, setEmail, navigation}) => {
+  export  const handleSignUp = (email, password, setPassword, setEmail, navigation) => {
         try {
           if (!email || !password || (!email && !password)) {
             throw new Error('Please fill all fields');

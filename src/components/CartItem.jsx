@@ -13,15 +13,15 @@ export default function CartItem({item}) {
       style={{
         padding: hp(1),
         backgroundColor: 'white',
-        marginVertical: hp(1.5),
+        marginVertical: hp(0.4),
         flexDirection: 'row',
-        gap: hp(1.5),
+        gap: hp(1),
         borderRadius: hp(0.5),
       }}
       key={id}>
       <View>
         <FastImage
-          style={{width: hp(12), height: hp(12)}}
+          style={{width: hp(5), height: hp(5)}}
           source={{uri: image}}
         />
       </View>
@@ -32,7 +32,7 @@ export default function CartItem({item}) {
       </View>
 
       <Pressable>
-        <PlusCircleIcon size={hp(10)} color="black" />
+        <PlusCircleIcon size={hp(4)} color="gray" />
       </Pressable>
     </Pressable>
   );

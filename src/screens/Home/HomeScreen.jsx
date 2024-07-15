@@ -1,23 +1,11 @@
-import {
-  View,
-  Text,
-  ScrollView,
-  StatusBar,
-  SafeAreaView,
-  Pressable,
-} from 'react-native';
+import {View, Text, ScrollView, SafeAreaView, Pressable} from 'react-native';
 import React from 'react';
-import {
-  Bars3BottomLeftIcon,
-  BellIcon,
-  InformationCircleIcon,
-  MagnifyingGlassCircleIcon,
-  TruckIcon,
-  UserIcon,
-} from 'react-native-heroicons/outline';
-import {PlayIcon} from 'react-native-heroicons/solid';
+import {BellIcon, TruckIcon} from 'react-native-heroicons/outline';
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import {useNavigation} from '@react-navigation/native';
+import SpecialCard from '../../components/HomeScreencomponents/SpecialCard';
+import HeadingComp from '../../components/HomeScreencomponents/HeadingComp';
+import FeaturesCard from '../../components/HomeScreencomponents/FeaturesCard';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -25,97 +13,32 @@ export default function HomeScreen() {
   return (
     <SafeAreaView className="flex-1">
       <ScrollView>
-        <StatusBar
-          backgroundColor="transparent"
-          barStyle="dark-content"
-          translucent
-        />
-        <View className="h-48 bg-amber-400">
-          <View className="flex-row justify-between items-center mx-2 mt-5">
-            <Bars3BottomLeftIcon size={28} color="black" />
-            <Text className="text-2xl font-serif text-black">
-              Laundary Mate
-            </Text>
-            <UserIcon size={28} color="black" />
-          </View>
-          <View>
-            <View className=" mx-1 ">
-              <Text
-                style={{fontFamily: 'kohinoorTelugu-Medium'}}
-                className="text-xl  tracking-tight font-mono">
-                Hi Sahil
-              </Text>
-              <View className="flex-row justify-between items-center mr-2">
-                <Text
-                  style={{
-                    fontFamily: 'kohinoorTelugu-Medium',
-                    color: '#ffffff',
-                  }}
-                  className="font-semibold text-lg">
-                  Home | New Delhi - 110018
-                </Text>
-                <View className="flex-row items-center">
-                  <InformationCircleIcon size={24} color="black" />
-                  <Text>QUICK HELP</Text>
-                </View>
-              </View>
-            </View>
-          </View>
-        </View>
+        <HeadingComp />
         <View
           style={{width: hp(30)}}
-          className="flex-row justify-between items-center mx-3 space-x-2">
-          <View
-            style={{marginTop: hp(14)}}
-            className="bg-white py-3 px-3 rounded-md">
-            <View className="flex-row items-center space-x-1 mx-2">
-              <Text className="text-amber-300 text-lg font-bold">Club</Text>
-              <Text className="text-blue-600 text-lg font-bold">Ultimate</Text>
-            </View>
-            <Text>
-              Enjoy the benefits of Club Ultimate with a subscription of ₹99
-            </Text>
-            <Text className="text-yellow-400 text-xl">Subscribe Now</Text>
-          </View>
-          <View
-            style={{marginTop: hp(14)}}
-            className="bg-white py-3 px-3 rounded-md">
-            <View className="flex-row items-center space-x-1 mx-2">
-              <Text className="text-amber-300 text-lg font-bold">Latest</Text>
-              <Text className="text-blue-600 text-lg font-bold">Offers</Text>
-            </View>
-            <Text>
-              Check out the latest offers and discounts on our services
-            </Text>
-            <Text className="text-yellow-400 text-xl">Check Out</Text>
-          </View>
+          className="flex-row justify-between items-center mx-3 space-x-2 space-y-1">
+          <SpecialCard
+            info="Enjoy the benefits of Club Ultimate with a subscription of ₹99"
+            headingTxt1="Club"
+            headingTxt2="Ultimatie"
+            btnTxt="Subscribe Now"
+          />
+          <SpecialCard
+            info="Check out the latest offers and discounts on our platform"
+            headingTxt1="Latest"
+            headingTxt2="Offers"
+            onPress={() => navigation.push('Offers')}
+            btnTxt="View Offers"
+          />
         </View>
-        <View className="flex-row items-center  mx-2 my-2">
-          <View className="px-4 py-3 rounded-md bg-white">
-            <View className="flex-row items-center space-x-1">
-              <View>
-                <Text className="text-2xl font-bold text-blue-600">
-                  Services
-                </Text>
-                <Text>Choose from a variety of services</Text>
-              </View>
-              <PlayIcon size={24} color="black" />
-            </View>
-          </View>
-        </View>
-        <View className="flex-row items-center  mx-2 my-2">
-          <View className="px-4 py-3 rounded-md bg-white">
-            <View className="flex-row items-center space-x-1">
-              <View>
-                <Text className="text-2xl font-bold text-blue-600">
-                  Affordable Prices
-                </Text>
-                <Text>Get Our Price List</Text>
-              </View>
-              <PlayIcon size={24} color="black" />
-            </View>
-          </View>
-        </View>
+        <FeaturesCard
+          featureTxt="Affordable Prices"
+          featureInfo="Get Our Price List"
+        />
+        <FeaturesCard
+          featureTxt="Services"
+          featureInfo="Choose from variety of services"
+        />
       </ScrollView>
       <View
         className="flex-row space-x-1"
@@ -150,16 +73,6 @@ export default function HomeScreen() {
           </View>
         </View>
       </View>
-
-      <MagnifyingGlassCircleIcon
-        size={60}
-        color="black"
-        style={{
-          position: 'absolute',
-          bottom: hp('2%'), // Using hp for responsive design
-          right: 6, // Adjust as needed
-        }}
-      />
     </SafeAreaView>
   );
 }

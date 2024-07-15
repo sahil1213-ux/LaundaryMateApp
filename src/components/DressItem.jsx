@@ -17,7 +17,7 @@ export default function DressItem({item, selectedOption, key}) {
   const cart = useSelector(state => state.cart.cart);
 
   return (
-    <View>
+    <View key={key}>
       <Pressable
         key={key}
         className="flex-row items-center"
@@ -51,7 +51,7 @@ export default function DressItem({item, selectedOption, key}) {
             onPress={() => {
               dispatch(addToCart({item, category: selectedOption}));
             }}>
-            <PlusIcon size={hp(3)} color="#89CFF0" />
+            <PlusIcon size={hp(3)} color="blue" />
           </Pressable>
         )}
       </Pressable>
@@ -69,7 +69,8 @@ const styles = {
   container: {
     padding: hp(1),
     gap: hp(1.5),
-    marginVertical: hp(1.5),
+    // marginVertical: hp(1.5),
+    marginVertical: hp(0.4),
     backgroundColor: theme.white,
   },
   addToCart: {

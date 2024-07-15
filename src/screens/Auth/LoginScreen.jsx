@@ -3,19 +3,16 @@ import {
   Text,
   SafeAreaView,
   KeyboardAvoidingView,
-  TextInput,
   Pressable,
-  StyleSheet,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {storage} from '../../mmkv';
 import {useNavigation} from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
-import {Icon} from 'react-native-vector-icons/Fontisto';
-import {AntDesign} from 'react-native-vector-icons/AntDesign';
 import {handleLogin} from '../../firebase/SignupAndLogin';
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import {theme} from '../../utils/theme';
+import AuthInputs from '../../components/AuthComponents';
 
 // firebase
 
@@ -40,15 +37,15 @@ export default function LoginScreen() {
 
   return (
     <SafeAreaView
-      className="flex-1 items-center"
+      className="flex-1 space-y-1"
       style={{backgroundColor: theme.white}}>
-      <Text
-        onPress={() => navigation.push('TabNav')}
-        className="self-end my-1 mx-1 text-black sm:text-sm md:text-base">
-        Skip
-      </Text>
       <View
-        style={{height: hp(40), backgroundColor: theme.amber, width: '100%'}}>
+        style={{height: hp(27), backgroundColor: theme.amber, width: '100%'}}>
+        <Text
+          onPress={() => navigation.push('TabNav')}
+          className="self-end my-1 mx-1 text-white sm:text-sm md:text-base">
+          Skip
+        </Text>
         <View
           className="items-center justify-center"
           style={{
@@ -62,88 +59,60 @@ export default function LoginScreen() {
           />
         </View>
         <Text
-          className="text-center text-2xl font-bold"
+          className={`text-center text-amber text-2xl font-bold`}
           style={{
             marginTop: hp(2),
             fontSize: hp(3),
-            color: theme.white,
           }}>
           Wash Wizard
         </Text>
       </View>
 
-      <KeyboardAvoidingView>
-        <View style={{alignItems: 'center font-bold'}}>
+      <KeyboardAvoidingView className="space-y-2 flex-1 justify-center">
+        <View>
           <Text
+            className={`text-center text-amber font-bold text-base`}
             style={{
-              fontSize: hp(3),
-              marginTop: hp(5),
-              color: theme.amber,
+              marginTop: hp(1),
             }}>
             Log in to your Account
           </Text>
         </View>
 
-        <View>
-          <View style={styles.emailContainer}>
-            <Icon
-              style={{marginLeft: hp(1.3)}}
-              name="email"
-              size={hp(2.5)}
-              color={theme.white}
-            />
-            <TextInput
-              value={email}
-              onChangeText={text => setEmail(text)}
-              style={styles.EmailField}
-              placeholder="Enter your email"
-              placeholderTextColor={theme.white}
-            />
-          </View>
-
-          <View style={styles.passwordContainer}>
-            <AntDesign
-              name="lock1"
-              size={hp(2.5)}
-              color={theme.white}
-              style={{marginLeft: hp(1)}}
-            />
-            <TextInput
-              secureTextEntry={true}
-              value={password}
-              onChangeText={text => setPassword(text)}
-              style={styles.PasswordField}
-              placeholder="Enter your password"
-              placeholderTextColor={theme.white}
-            />
-          </View>
+        <View className="space-y-1">
+          <AuthInputs
+            value={email}
+            setValue={setEmail}
+            tag="email"
+            placeholder="Enter your email"
+          />
+          <AuthInputs
+            value={password}
+            setValue={setPassword}
+            tag="password"
+            placeholder="enter your password"
+          />
         </View>
 
         <View
-          className="flex-row items-center justify-between"
+          className=" self-end mx-3"
           style={{
             marginTop: hp(2),
           }}>
-          <Text>Keep me logged in</Text>
           <Text style={{color: theme.amber, fontWeight: '500'}}>
             Forgot Password
           </Text>
         </View>
 
-        <View style={{marginTop: hp(10)}} />
-
         <Pressable
           onPress={() => handleLogin({email, password})}
-          className="rounded-sm bg-yellow-500 p-4 ml-auto mr-auto"
+          className="rounded-sm bg-yellow-500 ml-auto mr-auto mt-1 "
           style={{
-            width: hp(20),
-            padding: hp(2),
+            marginTop: hp(1.3),
+            paddingHorizontal: hp(8),
+            padding: hp(1.5),
           }}>
-          <Text
-            className="text-center text-white font-bold"
-            style={{
-              fontSize: hp(2),
-            }}>
+          <Text className="text-center text-white font-bold text-sm">
             Login
           </Text>
         </Pressable>
@@ -151,44 +120,12 @@ export default function LoginScreen() {
         <Pressable
           onPress={() => navigation.replace('SignUp')}
           style={{marginTop: hp(1)}}>
-          <Text style={{fontSize: hp(3)}} className="text-center">
-            {`Don't have an account? Sign up`}
+          <Text style={{fontSize: hp(2)}} className="text-center">
+            {`Don't have an account? `}
+            <Text style={{color: theme.amber}}>Sign up</Text>
           </Text>
         </Pressable>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  passwordContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: hp(1),
-    backgroundColor: theme.amber,
-    paddingVertical: hp(1),
-    borderRadius: 5,
-    marginTop: hp(5),
-  },
-  emailContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: hp(1),
-    backgroundColor: theme.amber,
-    paddingVertical: hp(1),
-    borderRadius: 5,
-    marginTop: hp(5),
-  },
-  EmailField: {
-    color: theme.white,
-    width: hp(20),
-    marginVertical: hp(1.5),
-    fontSize: hp(3),
-  },
-  PasswordField: {
-    color: theme.white,
-    width: hp(20),
-    marginVertical: hp(1.5),
-    fontSize: hp(3),
-  },
-});

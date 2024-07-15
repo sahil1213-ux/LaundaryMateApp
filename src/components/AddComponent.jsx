@@ -2,21 +2,19 @@ import {View, Text, Pressable} from 'react-native';
 import React from 'react';
 import {useDispatch} from 'react-redux';
 
-import MinusIcon from './MinusIcon';
-import PlusIcon from './PlusIcon';
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import PropTypes from 'prop-types';
 import {decrementQuantity, incrementQuantity} from '../redux/CartReducer';
 import {theme} from '../utils/theme';
+import {PlusIcon, MinusIcon} from 'react-native-heroicons/solid';
 
 export default function AddComponent({item, cart}) {
   const dispatch = useDispatch();
 
   return (
     <View>
-      <Text>AddComponent</Text>
       <Pressable
-        className="flex-row items-center"
+        className="flex-row items-center border-blue-500 rounded-full border"
         style={{
           paddingHorizontal: hp(1),
           borderRadius: 5,
@@ -26,7 +24,7 @@ export default function AddComponent({item, cart}) {
             console.log('Pressable pressed');
             dispatch(decrementQuantity(item));
           }}>
-          <MinusIcon size={hp(5)} color={theme.lightBlue} />
+          <MinusIcon size={hp(3)} color="blue" />
         </Pressable>
 
         <Pressable>
@@ -44,7 +42,7 @@ export default function AddComponent({item, cart}) {
           onPress={() => {
             dispatch(incrementQuantity(item));
           }}>
-          <PlusIcon size={hp(5)} color="#89CFF0" />
+          <PlusIcon size={hp(3)} color="blue" />
         </Pressable>
       </Pressable>
     </View>
